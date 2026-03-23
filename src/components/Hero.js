@@ -127,7 +127,7 @@ export default function Hero() {
           className="mt-12 flex flex-col sm:flex-row gap-4"
         >
           <a
-            href="https://boxxthailand.com/book"
+            href="https://boxx.zatrovo.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-[260px] px-8 py-6 bg-cta text-[#0a0a0a] text-sm tracking-[0.2em] uppercase font-semibold hover:bg-cta-hover transition-all duration-500 text-center whitespace-nowrap"

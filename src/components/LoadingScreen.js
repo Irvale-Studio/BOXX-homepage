@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
@@ -55,9 +56,14 @@ export default function LoadingScreen() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter">
-              BOXX
-            </h1>
+            <Image
+              src="/images/brand/logo-primary-white.png"
+              alt="BOXX"
+              width={200}
+              height={60}
+              priority
+              className="w-40 md:w-48 h-auto"
+            />
           </motion.div>
 
           {/* Progress bar */}

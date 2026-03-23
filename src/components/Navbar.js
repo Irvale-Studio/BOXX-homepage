@@ -23,10 +23,11 @@ const socialIcons = {
 const socialLinks = [
   { name: 'Instagram', href: 'https://instagram.com/boxxthailand', icon: socialIcons.instagram },
   { name: 'TikTok', href: 'https://tiktok.com/@boxxthailand', icon: socialIcons.tiktok },
+  { name: 'Facebook', href: 'https://facebook.com/boxxthailand', icon: socialIcons.facebook },
   { name: 'WhatsApp', href: 'https://wa.me/66934972306', icon: socialIcons.whatsapp },
 ];
 
-const PLATFORM_URL = 'https://boxxthailand.com';
+const PLATFORM_URL = 'https://boxx.zatrovo.com';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PLATFORM_URL = 'https://boxxthailand.com';
+const PLATFORM_URL = 'https://boxx.zatrovo.com';
 
 const address = '89/2 Bumruang Road, Wat Ket, Chiang Mai 50000';
 const email = 'hello@boxxthailand.com';
@@ -42,6 +42,7 @@ const footerLinks = [
     links: [
       { name: 'Instagram', href: 'https://instagram.com/boxxthailand', external: true },
       { name: 'TikTok', href: 'https://tiktok.com/@boxxthailand', external: true },
+      { name: 'Facebook', href: 'https://facebook.com/boxxthailand', external: true },
       { name: 'WhatsApp', href: `https://wa.me/${phone.replace(/[^0-9]/g, '')}`, external: true },
     ],
   },

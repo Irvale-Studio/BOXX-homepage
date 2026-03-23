@@ -134,7 +134,7 @@ function ClassCard({ cls, index, isExpanded, onToggle }) {
 
               <div className="pt-3">
                 <a
-                  href="https://boxxthailand.com/book"
+                  href="https://boxx.zatrovo.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
@@ -193,7 +193,7 @@ export default function Classes() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
             >
-              Find Your Fight
+              Find Your Class
             </motion.h2>
           </div>
 
