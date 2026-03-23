@@ -18,7 +18,7 @@ export default async function Icon() {
 
   // Create dark background, composite the icon on top
   const bg = Buffer.from(
-    `<svg width="64" height="64"><rect width="64" height="64" fill="#0a0a0a"/></svg>`
+    `<svg width="64" height="64"><rect width="64" height="64" rx="12" ry="12" fill="#0a0a0a"/></svg>`
   );
 
   const icon = await sharp(bg)
