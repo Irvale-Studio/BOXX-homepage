@@ -6,10 +6,17 @@ export const size = { width: 64, height: 64 };
 export const contentType = 'image/png';
 
 export default async function Icon() {
-  const logoPath = join(process.cwd(), 'public/images/brand/logo-secondary-bw.png');
+  const logoPath = join(process.cwd(), 'public/images/brand/logo-primary-white.png');
   const logoBuffer = await readFile(logoPath);
 
-  // Create dark background, composite the full logo on top
+  // Get logo dimensions and crop just the icon (left ~28% of the image)
+  const meta = await sharp(logoBuffer).metadata();
+  const iconWidth = Math.round(meta.width * 0.28);
+  const cropped = await sharp(logoBuffer)
+    .extract({ left: 0, top: 0, width: iconWidth, height: meta.height })
+    .toBuffer();
+
+  // Create dark background, composite the icon on top
   const bg = Buffer.from(
     `<svg width="64" height="64"><rect width="64" height="64" fill="#0a0a0a"/></svg>`
   );
@@ -17,8 +24,8 @@ export default async function Icon() {
   const icon = await sharp(bg)
     .composite([
       {
-        input: await sharp(logoBuffer)
-          .resize({ width: 56, fit: 'inside' })
+        input: await sharp(cropped)
+          .resize({ height: 52, fit: 'inside' })
           .toBuffer(),
         gravity: 'centre',
       },
