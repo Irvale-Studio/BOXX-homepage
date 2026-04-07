@@ -22,6 +22,7 @@ const founders = [
     name: 'Georgina',
     role: 'Co-Founder',
     image: '/images/brand/georgina.png',
+    imagePosition: 'center 30%',
     paragraphs: [
       'Georgina grew up in the UK and has always had a strong connection to Thailand, having first visited over 20 years ago. She met Bert in London through their shared passion for fitness and boxing, before leaving her corporate career to travel across Asia.',
       'Following her interest in health and movement, Georgina qualified as a STOTT Pilates instructor in both mat and reformer in the UK. She went on to teach at multiple studios in the UK before relocating to Thailand, where she worked at one of Bangkok\u2019s leading STOTT Pilates studios.',
@@ -47,7 +48,8 @@ function FounderCard({ founder }) {
           src={founder.image}
           alt={`${founder.name}, ${founder.role} of BOXX`}
           fill
-          className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          style={{ objectPosition: founder.imagePosition || 'center top' }}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
@@ -131,24 +133,6 @@ export default function Founders() {
           </motion.h3>
         </div>
       </div>
-
-      {/* Founders photo */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.8 }}
-        className="relative aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-10"
-      >
-        <Image
-          src="/images/brand/founders.png"
-          alt="Bert and Georgina, co-founders of BOXX"
-          fill
-          className="object-cover object-[center_30%]"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
-      </motion.div>
 
       {/* Founder cards */}
       <div className="grid md:grid-cols-2 gap-5 md:gap-6">
