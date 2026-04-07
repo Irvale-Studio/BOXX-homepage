@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
@@ -67,135 +67,96 @@ function ScheduleCell({ className: cls }) {
 }
 
 export default function Schedule() {
-  const [expanded, setExpanded] = useState(false);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
   const legendItems = Object.entries(classColors);
 
   return (
-    <div ref={ref} className="mt-20 hidden md:block">
+    <div ref={ref} className="mt-20">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="flex items-center justify-between mb-10"
+        className="mb-10"
       >
-        <div>
-          <p className="text-accent text-xs tracking-[0.4em] uppercase mb-4">Weekly Timetable</p>
-          <h3 className="text-3xl md:text-4xl font-bold tracking-tight">Class Schedule</h3>
-        </div>
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-3 px-6 py-3 border border-white/10 hover:border-accent/30 transition-colors duration-300 group"
-        >
-          <span className="text-xs tracking-[0.15em] uppercase text-white/50 group-hover:text-white/70 transition-colors">
-            {expanded ? 'Minimise' : 'Expand'}
-          </span>
-          <motion.span
-            animate={{ rotate: expanded ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-white/30 text-sm"
-          >
-            &#9660;
-          </motion.span>
-        </button>
+        <p className="text-accent text-xs tracking-[0.4em] uppercase mb-4">Weekly Timetable</p>
+        <h3 className="text-3xl md:text-4xl font-bold tracking-tight">Class Schedule</h3>
       </motion.div>
 
-      {/* Minimised — today/tomorrow */}
-      <AnimatePresence mode="wait">
-        {!expanded && (
-          <motion.div
-            key="minimised"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <MinimisedView />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile — card view (today/tomorrow) */}
+      <div className="md:hidden">
+        <MinimisedView />
+      </div>
 
-      {/* Expanded — full timetable */}
-      <AnimatePresence mode="wait">
-        {expanded && (
-          <motion.div
-            key="expanded"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="border border-white/[0.06] overflow-hidden">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th className="text-[11px] tracking-[0.2em] uppercase text-accent/70 font-medium py-4 px-4 text-left border-b border-white/[0.06] w-[100px]">
-                      Time
-                    </th>
-                    {days.map((day) => (
-                      <th
-                        key={day}
-                        className={`text-[11px] tracking-[0.2em] uppercase font-medium py-4 px-2 text-center border-b border-white/[0.06] ${
-                          day === 'SUN' ? 'text-white/20' : 'text-white/60'
-                        }`}
-                      >
-                        {day}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {timeSlots.map((slot, slotIndex) => (
-                    <tr key={slot.time}>
-                      <td className="text-xs text-accent/50 font-medium py-4 px-4 border border-white/[0.04] whitespace-nowrap">
-                        {slot.time}
-                      </td>
-                      {days.map((day) => {
-                        if (day === 'SUN') {
-                          return (
-                            <td
-                              key={day}
-                              className="border border-white/[0.04] p-2 text-center"
-                            >
-                              {slotIndex === 2 && (
-                                <span className="text-white/15 text-[11px] tracking-[0.2em] uppercase">
-                                  Closed
-                                </span>
-                              )}
-                            </td>
-                          );
-                        }
-                        return (
-                          <ScheduleCell key={day} className={slot.classes[day]} />
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Legend */}
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8 pt-6 border-t border-white/[0.06]">
-              {legendItems.map(([name, color]) => (
-                <div key={name} className="flex items-center gap-2.5">
-                  <div
-                    className="w-3 h-3 rounded-sm"
-                    style={{ backgroundColor: color.bg }}
-                  />
-                  <span className="text-[11px] tracking-wider text-white/40 uppercase">
-                    {name}
-                  </span>
-                </div>
+      {/* Desktop — full timetable */}
+      <div className="hidden md:block">
+        <div className="border border-white/[0.06] overflow-hidden">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <th className="text-[11px] tracking-[0.2em] uppercase text-accent/70 font-medium py-4 px-4 text-left border-b border-white/[0.06] w-[100px]">
+                  Time
+                </th>
+                {days.map((day) => (
+                  <th
+                    key={day}
+                    className={`text-[11px] tracking-[0.2em] uppercase font-medium py-4 px-2 text-center border-b border-white/[0.06] ${
+                      day === 'SUN' ? 'text-white/20' : 'text-white/60'
+                    }`}
+                  >
+                    {day}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {timeSlots.map((slot, slotIndex) => (
+                <tr key={slot.time}>
+                  <td className="text-xs text-accent/50 font-medium py-4 px-4 border border-white/[0.04] whitespace-nowrap">
+                    {slot.time}
+                  </td>
+                  {days.map((day) => {
+                    if (day === 'SUN') {
+                      return (
+                        <td
+                          key={day}
+                          className="border border-white/[0.04] p-2 text-center"
+                        >
+                          {slotIndex === 2 && (
+                            <span className="text-white/15 text-[11px] tracking-[0.2em] uppercase">
+                              Closed
+                            </span>
+                          )}
+                        </td>
+                      );
+                    }
+                    return (
+                      <ScheduleCell key={day} className={slot.classes[day]} />
+                    );
+                  })}
+                </tr>
               ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Legend */}
+        <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8 pt-6 border-t border-white/[0.06]">
+          {legendItems.map(([name, color]) => (
+            <div key={name} className="flex items-center gap-2.5">
+              <div
+                className="w-3 h-3 rounded-sm"
+                style={{ backgroundColor: color.bg }}
+              />
+              <span className="text-[11px] tracking-wider text-white/40 uppercase">
+                {name}
+              </span>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </div>
+      </div>
 
       {/* Book a Class CTA */}
       <div className="mt-10">

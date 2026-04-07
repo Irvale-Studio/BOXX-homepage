@@ -33,6 +33,7 @@ const founders = [
 
 function FounderCard({ founder }) {
   const [expanded, setExpanded] = useState(false);
+  const cardHeight = 'h-[500px] md:h-[600px]';
 
   return (
     <motion.div
@@ -40,10 +41,15 @@ function FounderCard({ founder }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="border border-card-border bg-card/50 overflow-hidden group"
+      className={`border border-card-border bg-card/50 overflow-hidden group ${cardHeight} flex flex-col cursor-pointer`}
+      onClick={() => setExpanded(!expanded)}
     >
-      {/* Image — always visible */}
-      <div className="relative aspect-[4/3] overflow-hidden cursor-pointer" onClick={() => setExpanded(!expanded)}>
+      {/* Image — shrinks when expanded */}
+      <motion.div
+        className="relative overflow-hidden flex-shrink-0"
+        animate={{ flex: expanded ? '0 0 35%' : '1 1 auto' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
         <Image
           src={founder.image}
           alt={`${founder.name}, ${founder.role} of BOXX`}
@@ -63,13 +69,10 @@ function FounderCard({ founder }) {
             {founder.name}
           </h4>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Expand toggle */}
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between px-6 py-4 border-t border-card-border"
-      >
+      {/* Toggle bar */}
+      <div className="w-full flex items-center justify-between px-6 py-4 border-t border-card-border flex-shrink-0">
         <span className="text-[11px] tracking-wider text-white/25">
           {expanded ? 'Click to collapse' : 'Read more'}
         </span>
@@ -80,28 +83,22 @@ function FounderCard({ founder }) {
         >
           &#x2304;
         </motion.span>
-      </button>
+      </div>
 
-      {/* Expandable bio */}
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 pb-8 space-y-5">
-              {founder.paragraphs.map((p, i) => (
-                <p key={i} className="text-white/50 text-sm md:text-base leading-[1.9]">
-                  {p}
-                </p>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Bio text — fills remaining space when expanded */}
+      <motion.div
+        animate={{ flex: expanded ? '1 1 auto' : '0 0 0px', opacity: expanded ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="overflow-y-auto flex-shrink-0"
+      >
+        <div className="px-6 pb-6 space-y-4">
+          {founder.paragraphs.map((p, i) => (
+            <p key={i} className="text-white/50 text-sm md:text-base leading-[1.9]">
+              {p}
+            </p>
+          ))}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

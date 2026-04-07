@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(node:*)",
+      "Bash(npx next-sharp-info:*)",
+      "WebFetch(domain:boxx.zatrovo.com)",
+      "Bash(npx next:*)",
+      "Bash(npm run:*)",
+      "Bash(npx --no-install next build)",
+      "Bash(cp \"C:\\\\Users\\\\jacob\\\\.claude\\\\image-cache\\\\163b66aa-e41c-464f-8837-984ee2e6dc28\\\\16.png\" \"C:\\\\Users\\\\jacob\\\\Projects\\\\BOXX-homepage\\\\public\\\\images\\\\brand\\\\founders.png\")",
+      "Bash(cp \"C:\\\\Users\\\\jacob\\\\.claude\\\\image-cache\\\\163b66aa-e41c-464f-8837-984ee2e6dc28\\\\18.png\" \"C:\\\\Users\\\\jacob\\\\Projects\\\\BOXX-homepage\\\\public\\\\images\\\\brand\\\\bert.png\")",
+      "Bash(cp \"C:\\\\Users\\\\jacob\\\\.claude\\\\image-cache\\\\163b66aa-e41c-464f-8837-984ee2e6dc28\\\\20.png\" \"C:\\\\Users\\\\jacob\\\\Projects\\\\BOXX-homepage\\\\public\\\\images\\\\brand\\\\georgina.png\")"
+    ]
+  }
+}
