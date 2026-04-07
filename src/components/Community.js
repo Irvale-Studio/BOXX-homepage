@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import Image from 'next/image';
 
 const communityImages = [
-  { src: '/images/studio/community.webp', alt: 'BOXX Community run club' },
-  { src: '/images/studio/mirror-1.webp', alt: 'Members at the #BOXXCNX mirror' },
-  { src: '/images/studio/mirror-2.webp', alt: 'Post-session selfie at BOXX' },
-  { src: '/images/studio/mirror-3.webp', alt: 'Family training session at BOXX' },
+  { src: '/images/studio/community-1.jpg', alt: 'BOXX Community run club' },
+  { src: '/images/studio/community-2.jpg', alt: 'Members at the #BOXXCNX mirror' },
+  { src: '/images/studio/community-3.jpg', alt: 'Post-session selfie at BOXX' },
+  { src: '/images/studio/community-4.jpg', alt: 'Family training session at BOXX' },
 ];
 
 // Grid template based on which index is featured

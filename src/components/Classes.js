@@ -14,7 +14,7 @@ const classes = [
     level: 'All Levels',
     duration: '1 hr 15 min',
     capacity: '6 max',
-    image: '/images/studio/class-boxing.webp',
+    image: '/images/studio/class-boxing.jpg',
     imagePosition: 'center 25%',
     description:
       'Boxing for all levels, combining shadow boxing, partner drills, bag work, and pad work. No sparring.',
@@ -26,7 +26,7 @@ const classes = [
     level: 'All Levels',
     duration: '1 hr 15 min',
     capacity: '6 max',
-    image: '/images/studio/class-train.webp',
+    image: '/images/studio/class-train.jpg',
     description:
       'A blend of boxing and strength training, combining shadow boxing, bag work, and circuits with kettlebells, dumbbells, and bodyweight. Train to your ability, at your own pace.',
     features: ['Shadow boxing', 'Bag work', 'Kettlebells', 'Circuits'],
@@ -37,7 +37,7 @@ const classes = [
     level: 'All Levels',
     duration: '1 hr 15 min',
     capacity: '8 max',
-    image: '/images/studio/class-action.webp',
+    image: '/images/studio/class-strength.jpg',
     description:
       'A strength and conditioning class focused on building full-body strength using kettlebells, dumbbells, and bodyweight through station-based circuits. Suitable for all levels. Train at your own pace.',
     features: ['Kettlebells', 'Dumbbells', 'Bodyweight', 'Station circuits'],
@@ -48,7 +48,7 @@ const classes = [
     level: 'All Levels',
     duration: '1 hr',
     capacity: '6 max',
-    image: '/images/studio/class-juniors.webp',
+    image: '/images/studio/class-pilates.jpg',
     description:
       'A full-body STOTT Pilates mat class focused on strength, control, and mobility. Suitable for all levels.',
     features: ['STOTT Pilates', 'Strength', 'Control', 'Mobility'],
@@ -62,7 +62,7 @@ const communityClasses = [
     level: 'All Levels',
     duration: '1 hr',
     capacity: '7 max',
-    image: '/images/studio/class-boxing.webp',
+    image: '/images/studio/class-sound.jpg',
     description:
       'A guided sound healing session using Tibetan singing bowls to promote deep relaxation, reset the nervous system, and restore overall balance, led by qualified practitioners.',
     features: ['Sound healing', 'Tibetan singing bowls', 'Deep relaxation', 'Nervous system reset'],
@@ -73,7 +73,7 @@ const communityClasses = [
     level: 'All Levels',
     duration: '',
     capacity: '20 max',
-    image: '/images/studio/class-action.webp',
+    image: '/images/studio/class-run.jpg',
     description:
       'A fun, community-driven run focused on improving technique with guidance from our trained coaches. Suitable for all levels.',
     features: ['Community run', 'Technique coaching', 'All levels', 'Fun focused'],
