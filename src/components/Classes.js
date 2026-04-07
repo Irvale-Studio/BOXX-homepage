@@ -3,56 +3,80 @@
 import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Schedule from './Schedule';
+import PersonalTraining from './PersonalTraining';
+import Founders from './Founders';
 
 const classes = [
   {
-    id: 'beginner',
-    name: 'BOXXBEGINNER',
-    level: 'Beginner',
-    duration: '55 min',
+    id: 'boxxing',
+    name: 'BOXXING',
+    level: 'All Levels',
+    duration: '1 hr 15 min',
     capacity: '6 max',
-    rounds: '10 rounds',
     image: '/images/studio/class-boxing.webp',
     imagePosition: 'center 25%',
     description:
-      'Perfect for first-timers or anyone new to boxing. Move through shadow boxing, bag work, and 1:1 padwork with a focus on both offence and defence.',
-    features: ['Shadow boxing', 'Bag work', '1:1 Padwork', 'Technique focus'],
-  },
-  {
-    id: 'intermediate',
-    name: 'BOXXINTER',
-    level: 'Intermediate',
-    duration: '55 min',
-    capacity: '6 max',
-    rounds: '12 rounds',
-    image: '/images/studio/class-action.webp',
-    description:
-      'For those with a basic understanding of boxing fundamentals. Higher pace, higher intensity, with advanced combinations and defensive drills.',
-    features: ['Advanced combos', 'Higher intensity', 'Defensive drills', 'Sparring prep'],
+      'Boxing for all levels, combining shadow boxing, partner drills, bag work, and pad work. No sparring.',
+    features: ['Shadow boxing', 'Partner drills', 'Bag work', 'Pad work'],
   },
   {
     id: 'train',
     name: 'BOXX&TRAIN',
     level: 'All Levels',
-    duration: '55 min',
+    duration: '1 hr 15 min',
     capacity: '6 max',
-    rounds: 'Hybrid',
     image: '/images/studio/class-train.webp',
     description:
-      'The best of both worlds. Boxing meets strength and conditioning with weights, kettlebells, and bodyweight training. Build muscle, burn fat, and get fit.',
-    features: ['Boxing drills', 'Kettlebells', 'Strength work', 'Fat burning'],
+      'A blend of boxing and strength training, combining shadow boxing, bag work, and circuits with kettlebells, dumbbells, and bodyweight. Train to your ability, at your own pace.',
+    features: ['Shadow boxing', 'Bag work', 'Kettlebells', 'Circuits'],
   },
   {
-    id: 'juniors',
-    name: 'BOXXJUNIORS',
-    level: 'Ages 9+',
-    duration: '55 min',
-    capacity: '10 max',
-    rounds: 'Fun focused',
+    id: 'strength',
+    name: 'BOXXSTRENGTH',
+    level: 'All Levels',
+    duration: '1 hr 15 min',
+    capacity: '8 max',
+    image: '/images/studio/class-action.webp',
+    description:
+      'A strength and conditioning class focused on building full-body strength using kettlebells, dumbbells, and bodyweight through station-based circuits. Suitable for all levels. Train at your own pace.',
+    features: ['Kettlebells', 'Dumbbells', 'Bodyweight', 'Station circuits'],
+  },
+  {
+    id: 'pilates',
+    name: 'BOXXPILATES',
+    level: 'All Levels',
+    duration: '1 hr',
+    capacity: '6 max',
     image: '/images/studio/class-juniors.webp',
     description:
-      'Boxing in a safe, fun, and supportive environment. Sessions build fitness, coordination, and discipline while teaching fundamentals.',
-    features: ['Coordination', 'Discipline', 'Fitness', 'Fun environment'],
+      'A full-body STOTT Pilates mat class focused on strength, control, and mobility. Suitable for all levels.',
+    features: ['STOTT Pilates', 'Strength', 'Control', 'Mobility'],
+  },
+];
+
+const communityClasses = [
+  {
+    id: 'sound',
+    name: 'BOXXSOUND',
+    level: 'All Levels',
+    duration: '1 hr',
+    capacity: '7 max',
+    image: '/images/studio/class-boxing.webp',
+    description:
+      'A guided sound healing session using Tibetan singing bowls to promote deep relaxation, reset the nervous system, and restore overall balance, led by qualified practitioners.',
+    features: ['Sound healing', 'Tibetan singing bowls', 'Deep relaxation', 'Nervous system reset'],
+  },
+  {
+    id: 'run',
+    name: 'BOXXRUN',
+    level: 'All Levels',
+    duration: '',
+    capacity: '20 max',
+    image: '/images/studio/class-action.webp',
+    description:
+      'A fun, community-driven run focused on improving technique with guidance from our trained coaches. Suitable for all levels.',
+    features: ['Community run', 'Technique coaching', 'All levels', 'Fun focused'],
   },
 ];
 
@@ -101,7 +125,7 @@ function ClassCard({ cls, index, isExpanded, onToggle }) {
             {cls.name}
           </h3>
           <div className="flex gap-4 mt-3">
-            {[cls.duration, cls.capacity, cls.rounds].map((detail) => (
+            {[cls.duration, cls.capacity].map((detail) => (
               <span key={detail} className="text-[11px] tracking-wider text-white/40">
                 {detail}
               </span>
@@ -204,8 +228,8 @@ export default function Classes() {
             transition={{ delay: 0.3 }}
             className="text-white/40 mt-6 max-w-lg text-base md:text-lg leading-relaxed"
           >
-            Small-group sessions. Maximum 6 people. Every class delivers proper
-            technique, real conditioning, and 1:1 attention from UK-qualified coaches.
+            Small group classes in a boutique setting, led by UK and Thai qualified
+            coaches. Built on real technique, strong community, and fun.
           </motion.p>
         </div>
 
@@ -224,40 +248,42 @@ export default function Classes() {
           ))}
         </div>
 
-        {/* Personal training callout */}
+        {/* Community Classes subtitle */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="mt-8 relative overflow-hidden border border-card-border bg-card/30 p-8 md:p-14"
+          className="mt-20 mb-16 md:mb-20"
         >
-          <div className="grid md:grid-cols-[1fr,auto] gap-10 items-center">
-            <div>
-              <p className="text-accent text-xs tracking-[0.4em] uppercase mb-4">
-                1-to-1 &amp; Small Group
-              </p>
-              <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
-                Personal Training
-              </h3>
-              <p className="text-white/40 max-w-lg leading-relaxed">
-                Tailored sessions built around your goals, whether that&apos;s boxing
-                technique, strength, weight loss, or fight preparation. Every
-                programme is designed specifically for you.
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-12 py-6 bg-cta text-[#0a0a0a] text-sm tracking-[0.2em] uppercase font-semibold hover:bg-cta-hover transition-colors duration-300 whitespace-nowrap"
-            >
-              Enquire Now
-            </button>
-          </div>
-
-          <div className="absolute top-0 right-0 w-24 h-24 border-t border-r border-accent/10" />
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+            Community Classes
+          </h3>
         </motion.div>
+
+        {/* Community class cards */}
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 items-start">
+          {communityClasses.map((cls, i) => (
+            <ClassCard
+              key={cls.id}
+              cls={cls}
+              index={i}
+              isExpanded={expandedId === cls.id}
+              onToggle={() =>
+                setExpandedId(expandedId === cls.id ? null : cls.id)
+              }
+            />
+          ))}
+        </div>
+
+        {/* Personal Training section */}
+        <PersonalTraining />
+
+        {/* Meet The Founders */}
+        <Founders />
+
+        {/* Weekly Schedule */}
+        <Schedule />
       </div>
     </section>
   );

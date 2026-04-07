@@ -42,7 +42,7 @@ const footerLinks = [
     links: [
       { name: 'Instagram', href: 'https://instagram.com/boxxthailand', external: true },
       { name: 'TikTok', href: 'https://tiktok.com/@boxxthailand', external: true },
-      { name: 'Facebook', href: 'https://facebook.com/boxxthailand', external: true },
+      { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61584385442693', external: true },
       { name: 'WhatsApp', href: `https://wa.me/${phone.replace(/[^0-9]/g, '')}`, external: true },
     ],
   },

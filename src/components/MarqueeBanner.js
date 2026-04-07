@@ -21,10 +21,10 @@ export default function MarqueeBanner() {
       >
         {[...items, ...items].map((item, i) => (
           <div key={i} className="flex items-center gap-12 md:gap-16">
-            <span className="text-sm md:text-base tracking-[0.5em] uppercase text-white/10 font-light">
+            <span className="text-sm md:text-base tracking-[0.5em] uppercase text-white/40 font-light">
               {item}
             </span>
-            <span className="text-accent/20 text-[8px]">&#9670;</span>
+            <span className="text-accent/40 text-[8px]">&#9670;</span>
           </div>
         ))}
       </motion.div>

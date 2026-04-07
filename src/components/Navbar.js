@@ -23,7 +23,7 @@ const socialIcons = {
 const socialLinks = [
   { name: 'Instagram', href: 'https://instagram.com/boxxthailand', icon: socialIcons.instagram },
   { name: 'TikTok', href: 'https://tiktok.com/@boxxthailand', icon: socialIcons.tiktok },
-  { name: 'Facebook', href: 'https://facebook.com/boxxthailand', icon: socialIcons.facebook },
+  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61584385442693', icon: socialIcons.facebook },
   { name: 'WhatsApp', href: 'https://wa.me/66934972306', icon: socialIcons.whatsapp },
 ];
 

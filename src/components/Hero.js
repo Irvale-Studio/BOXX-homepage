@@ -79,7 +79,7 @@ export default function Hero() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-accent text-[11px] md:text-xs tracking-[0.4em] uppercase mb-10 drop-shadow-lg"
         >
-          Chiang Mai&apos;s Luxury Boxing Studio
+          Chiang Mai&apos;s First Luxury Boxing and Fitness Gym
         </motion.p>
 
         {/* Main heading — logo */}

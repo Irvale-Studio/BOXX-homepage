@@ -23,8 +23,8 @@ export default function Home() {
       <Hero />
       <MarqueeBanner />
       <About />
-      <Features />
       <Classes />
+      <Features />
       <Gallery />
       <Testimonials />
       <Community />

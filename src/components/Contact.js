@@ -10,7 +10,7 @@ const phone = '+66 93 497 2306';
 const socialLinks = [
   { name: 'Instagram', href: 'https://instagram.com/boxxthailand' },
   { name: 'TikTok', href: 'https://tiktok.com/@boxxthailand' },
-  { name: 'Facebook', href: 'https://facebook.com/boxxthailand' },
+  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61584385442693' },
   { name: 'WhatsApp', href: `https://wa.me/${phone.replace(/[^0-9]/g, '')}` },
   { name: 'LINE', href: 'https://line.me/ti/p/@boxxthailand' },
 ];
