@@ -30,7 +30,7 @@ export default function Hero() {
         className="absolute inset-0"
       >
         <Image
-          src="/images/studio/hero.webp"
+          src="/images/studio/hero.jpg"
           alt="BOXX Boxing Studio"
           fill
           className="object-cover"

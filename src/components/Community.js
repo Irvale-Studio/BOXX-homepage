@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import Image from 'next/image';
 
 const communityImages = [
@@ -19,6 +19,72 @@ const gridTemplates = [
   { cols: '2.5fr 1fr', rows: '1fr 2.5fr' },  // 2: bottom-left big
   { cols: '1fr 2.5fr', rows: '1fr 2.5fr' },  // 3: bottom-right big
 ];
+
+const communityItems = [
+  {
+    title: 'BOXXRUN',
+    description: 'Community runs focused on connection and improving running technique.',
+  },
+  {
+    title: 'BOXXSOUND',
+    description: 'Restorative sound healing sessions designed to reset and recharge.',
+  },
+  {
+    title: 'EVENTS',
+    description: 'Workshops and community events designed to bring people together.',
+  },
+];
+
+function CommunityAccordion() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="space-y-0"
+    >
+      {communityItems.map((item, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div key={item.title} className="border-b border-white/[0.06]">
+            <button
+              onClick={() => setOpenIndex(isOpen ? -1 : i)}
+              className="w-full flex items-center justify-between py-6 group"
+            >
+              <h4 className={`text-lg md:text-xl font-bold tracking-wide transition-colors duration-300 ${isOpen ? 'text-white' : 'text-white/40 group-hover:text-white/60'}`}>
+                {item.title}
+              </h4>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className={`text-lg transition-colors duration-300 ${isOpen ? 'text-accent' : 'text-white/20'}`}
+              >
+                &#x2304;
+              </motion.span>
+            </button>
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-white/50 text-base md:text-lg leading-[1.8] pb-6">
+                    {item.description}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </motion.div>
+  );
+}
 
 export default function Community() {
   const sectionRef = useRef(null);
@@ -127,65 +193,10 @@ export default function Community() {
               })}
             </div>
 
-            {/* Floating BOXXRUN badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="absolute -bottom-5 right-4 lg:right-8 bg-accent text-black px-6 py-4 z-10"
-            >
-              <p className="text-xs tracking-[0.2em] uppercase font-bold">BOXXRUN</p>
-              <p className="text-[10px] tracking-wider mt-1 opacity-60">Free Run Club</p>
-            </motion.div>
           </motion.div>
 
-          {/* Text side */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-white/50 text-base md:text-lg leading-[1.8]"
-            >
-              BOXX is built on three things: passion, community, and a genuine
-              commitment to your growth. We believe training extends beyond physical
-              results. It&apos;s about confidence, skill, and belonging.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-white/50 text-base md:text-lg leading-[1.8] mt-6"
-            >
-              From free community run clubs to local charity events, we&apos;re creating
-              connections that go far beyond the ring. When you join BOXX, you join a
-              family.
-            </motion.p>
-
-            {/* Community pillars */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="grid grid-cols-3 gap-6 mt-12 pt-10 border-t border-white/[0.06]"
-            >
-              {[
-                { icon: '01', title: 'Connection', desc: 'Train together, grow together' },
-                { icon: '02', title: 'Events', desc: 'Free community activities' },
-                { icon: '03', title: 'Charity', desc: 'Giving back locally' },
-              ].map((item) => (
-                <div key={item.title}>
-                  <p className="text-accent text-2xl font-light">{item.icon}</p>
-                  <p className="text-sm font-semibold tracking-wide mt-3">{item.title}</p>
-                  <p className="text-xs text-white/30 mt-1 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+          {/* Accordion side */}
+          <CommunityAccordion />
         </div>
       </div>
     </section>
