@@ -51,15 +51,14 @@ export default function About() {
   return (
     <section id="about" ref={sectionRef} className="relative py-34 md:py-44 lg:py-52">
       <div className="max-w-[1600px] mx-auto px-10 lg:px-20">
-        <FadeIn>
-          <p className="text-accent text-xs tracking-[0.4em] uppercase mb-5">
-            About
-          </p>
-        </FadeIn>
-
         <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
           {/* Left — Text */}
           <div>
+            <FadeIn>
+              <p className="text-accent text-xs tracking-[0.4em] uppercase mb-5">
+                About
+              </p>
+            </FadeIn>
             <RevealText>
               <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                 BOXX is...
