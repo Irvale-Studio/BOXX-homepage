@@ -27,6 +27,7 @@ const founders = [
       'Georgina grew up in the UK and has always had a strong connection to Thailand, having first visited over 20 years ago. She met Bert in London through their shared passion for fitness and boxing, before leaving her corporate career to travel across Asia.',
       'Following her interest in health and movement, Georgina qualified as a STOTT Pilates instructor in both mat and reformer in the UK. She went on to teach at multiple studios in the UK before relocating to Thailand, where she worked at one of Bangkok\u2019s leading STOTT Pilates studios.',
       'After moving to Chiang Mai, Georgina co-founded BOXX alongside Bert, combining their shared vision to create a boutique fitness space centred around quality training, community, and long-term wellbeing.',
+      'Alongside Pilates, she is also a certified sound healing practitioner, bringing a more restorative and holistic element to the BOXX offering.',
     ],
   },
 ];

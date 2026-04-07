@@ -25,8 +25,8 @@ export default function Home() {
       <About />
       <Classes />
       <Features />
-      <Gallery />
       <Testimonials />
+      <Gallery />
       <Community />
       <Process />
       <CTABanner />
