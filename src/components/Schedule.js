@@ -86,8 +86,8 @@ export default function Schedule() {
       </motion.div>
 
       {/* Timetable — horizontally scrollable on mobile */}
-      <div className="overflow-x-auto -mx-10 px-10 md:mx-0 md:px-0">
-        <div className="border border-white/[0.06] overflow-hidden min-w-[700px]">
+      <div className="overflow-x-auto -mx-10 md:mx-0">
+        <div className="border border-white/[0.06] overflow-hidden min-w-[700px] mx-10 md:mx-0">
           <table className="w-full border-collapse">
             <thead>
               <tr>
