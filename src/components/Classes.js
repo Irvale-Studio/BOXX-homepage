@@ -276,14 +276,14 @@ export default function Classes() {
           ))}
         </div>
 
+        {/* Weekly Schedule */}
+        <Schedule />
+
         {/* Personal Training section */}
         <PersonalTraining />
 
         {/* Meet The Founders */}
         <Founders />
-
-        {/* Weekly Schedule */}
-        <Schedule />
       </div>
     </section>
   );

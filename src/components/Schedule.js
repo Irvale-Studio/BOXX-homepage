@@ -85,14 +85,9 @@ export default function Schedule() {
         <h3 className="text-3xl md:text-4xl font-bold tracking-tight">Class Schedule</h3>
       </motion.div>
 
-      {/* Mobile — card view (today/tomorrow) */}
-      <div className="md:hidden">
-        <MinimisedView />
-      </div>
-
-      {/* Desktop — full timetable */}
-      <div className="hidden md:block">
-        <div className="border border-white/[0.06] overflow-hidden">
+      {/* Timetable — horizontally scrollable on mobile */}
+      <div className="overflow-x-auto -mx-10 px-10 md:mx-0 md:px-0">
+        <div className="border border-white/[0.06] overflow-hidden min-w-[700px]">
           <table className="w-full border-collapse">
             <thead>
               <tr>
@@ -141,21 +136,21 @@ export default function Schedule() {
             </tbody>
           </table>
         </div>
+      </div>
 
-        {/* Legend */}
-        <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8 pt-6 border-t border-white/[0.06]">
-          {legendItems.map(([name, color]) => (
-            <div key={name} className="flex items-center gap-2.5">
-              <div
-                className="w-3 h-3 rounded-sm"
-                style={{ backgroundColor: color.bg }}
-              />
-              <span className="text-[11px] tracking-wider text-white/40 uppercase">
-                {name}
-              </span>
-            </div>
-          ))}
-        </div>
+      {/* Legend */}
+      <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8 pt-6 border-t border-white/[0.06]">
+        {legendItems.map(([name, color]) => (
+          <div key={name} className="flex items-center gap-2.5">
+            <div
+              className="w-3 h-3 rounded-sm"
+              style={{ backgroundColor: color.bg }}
+            />
+            <span className="text-[11px] tracking-wider text-white/40 uppercase">
+              {name}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Book a Class CTA */}
@@ -173,67 +168,3 @@ export default function Schedule() {
   );
 }
 
-function MinimisedView() {
-  const now = new Date();
-  const dayIndex = now.getDay();
-  const todayIndex = dayIndex === 0 ? 6 : dayIndex - 1;
-  const todayKey = days[todayIndex];
-
-  const todayClasses = timeSlots
-    .filter((slot) => slot.classes[todayKey])
-    .map((slot) => ({
-      time: slot.time,
-      name: slot.classes[todayKey],
-    }));
-
-  const tomorrowIndex = (todayIndex + 1) % 7;
-  const tomorrowKey = days[tomorrowIndex];
-  const tomorrowClasses = timeSlots
-    .filter((slot) => slot.classes[tomorrowKey])
-    .map((slot) => ({
-      time: slot.time,
-      name: slot.classes[tomorrowKey],
-    }));
-
-  return (
-    <div className="grid grid-cols-2 gap-5">
-      <DayCard title="Today" dayKey={todayKey} classes={todayClasses} />
-      <DayCard title="Tomorrow" dayKey={tomorrowKey} classes={tomorrowClasses} />
-    </div>
-  );
-}
-
-function DayCard({ title, dayKey, classes }) {
-  return (
-    <div className="border border-white/[0.06] bg-card/50">
-      <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
-        <span className="text-sm font-semibold tracking-wide">{title}</span>
-        <span className="text-[11px] tracking-[0.2em] uppercase text-accent/60">{dayKey}</span>
-      </div>
-      <div className="p-4 space-y-2">
-        {classes.length === 0 ? (
-          <p className="text-white/30 text-sm px-2 py-4 text-center">No classes</p>
-        ) : (
-          classes.map((cls) => {
-            const color = classColors[cls.name];
-            return (
-              <div
-                key={cls.time}
-                className="flex items-center gap-4 px-4 py-3 bg-white/[0.02] border border-white/[0.04]"
-              >
-                <span className="text-xs text-accent/50 font-medium w-24 shrink-0">
-                  {cls.time}
-                </span>
-                <div
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: color.bg }}
-                />
-                <span className="text-sm font-semibold tracking-wide">{cls.name}</span>
-              </div>
-            );
-          })
-        )}
-      </div>
-    </div>
-  );
-}

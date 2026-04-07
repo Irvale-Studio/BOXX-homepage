@@ -24,10 +24,10 @@ export default function Home() {
       <MarqueeBanner />
       <About />
       <Classes />
-      <Features />
       <Testimonials />
-      <Gallery />
       <Community />
+      <Gallery />
+      <Features />
       <Process />
       <CTABanner />
       <FAQ />
