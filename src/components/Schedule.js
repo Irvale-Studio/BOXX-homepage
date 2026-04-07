@@ -6,20 +6,18 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 const classColors = {
-  BOXXING: { bg: 'bg-blue-200', text: 'text-blue-900', dot: 'bg-blue-200' },
-  'BOXX&TRAIN': { bg: 'bg-yellow-200', text: 'text-yellow-900', dot: 'bg-yellow-200' },
-  BOXXPILATES: { bg: 'bg-purple-200', text: 'text-purple-900', dot: 'bg-purple-200' },
-  BOXXSOUND: { bg: 'bg-orange-100', text: 'text-orange-900', dot: 'bg-orange-100' },
-  BOXXSTRENGTH: { bg: 'bg-emerald-200', text: 'text-emerald-900', dot: 'bg-emerald-200' },
-  BOXXRUN: { bg: 'bg-pink-200', text: 'text-pink-900', dot: 'bg-pink-200' },
+  BOXXING: { bg: '#B3D4FC', text: '#1a3a5c' },
+  'BOXX&TRAIN': { bg: '#FCE588', text: '#5c4a0e' },
+  BOXXPILATES: { bg: '#D8B4FE', text: '#4a1d7a' },
+  BOXXSOUND: { bg: '#FDE8C8', text: '#6b4226' },
+  BOXXSTRENGTH: { bg: '#A7F3D0', text: '#14532d' },
+  BOXXRUN: { bg: '#FBCFE8', text: '#831843' },
 };
 
 const timeSlots = [
   {
     time: '8:00 – 9:15',
-    classes: {
-      SAT: 'BOXXRUN',
-    },
+    classes: { SAT: 'BOXXRUN' },
   },
   {
     time: '9:30 – 10:45',
@@ -34,9 +32,7 @@ const timeSlots = [
   },
   {
     time: '11:00 – 12:15',
-    classes: {
-      SAT: 'BOXX&TRAIN',
-    },
+    classes: { SAT: 'BOXX&TRAIN' },
   },
   {
     time: '5:30 – 6:45',
@@ -50,9 +46,7 @@ const timeSlots = [
   },
   {
     time: '7:00 – 8:00',
-    classes: {
-      WED: 'BOXXSOUND',
-    },
+    classes: { WED: 'BOXXSOUND' },
   },
 ];
 
@@ -63,38 +57,12 @@ function ScheduleCell({ className: cls }) {
   return (
     <td className="border border-white/[0.04] p-2">
       <div
-        className={`${color.bg} ${color.text} rounded-sm px-3 py-5 text-center font-semibold text-xs tracking-wide leading-tight h-full flex items-center justify-center`}
+        className="rounded-sm px-3 py-5 text-center font-semibold text-xs tracking-wide leading-tight h-full flex items-center justify-center"
+        style={{ backgroundColor: color.bg, color: color.text }}
       >
         {cls}
       </div>
     </td>
-  );
-}
-
-function MobileCard({ slot }) {
-  const entries = Object.entries(slot.classes);
-  if (entries.length === 0) return null;
-
-  return (
-    <div className="border border-white/[0.06] bg-card/50">
-      <div className="px-5 py-4 border-b border-white/[0.06]">
-        <span className="text-accent text-xs tracking-[0.2em] font-medium">{slot.time}</span>
-      </div>
-      <div className="p-4 grid grid-cols-2 gap-2">
-        {entries.map(([day, cls]) => {
-          const color = classColors[cls];
-          return (
-            <div
-              key={day}
-              className={`${color.bg} ${color.text} rounded-sm px-3 py-4 text-center`}
-            >
-              <p className="text-[10px] tracking-wider opacity-60 mb-1">{day}</p>
-              <p className="font-semibold text-xs tracking-wide">{cls}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
   );
 }
 
@@ -106,7 +74,7 @@ export default function Schedule() {
   const legendItems = Object.entries(classColors);
 
   return (
-    <div ref={ref} className="mt-20">
+    <div ref={ref} className="mt-20 hidden md:block">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -135,7 +103,7 @@ export default function Schedule() {
         </button>
       </motion.div>
 
-      {/* Minimised view — today's classes */}
+      {/* Minimised — today/tomorrow */}
       <AnimatePresence mode="wait">
         {!expanded && (
           <motion.div
@@ -150,7 +118,7 @@ export default function Schedule() {
         )}
       </AnimatePresence>
 
-      {/* Expanded view — full timetable */}
+      {/* Expanded — full timetable */}
       <AnimatePresence mode="wait">
         {expanded && (
           <motion.div
@@ -161,8 +129,7 @@ export default function Schedule() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            {/* Desktop table */}
-            <div className="hidden md:block border border-white/[0.06] overflow-hidden">
+            <div className="border border-white/[0.06] overflow-hidden">
               <table className="w-full border-collapse">
                 <thead>
                   <tr>
@@ -182,7 +149,7 @@ export default function Schedule() {
                   </tr>
                 </thead>
                 <tbody>
-                  {timeSlots.map((slot) => (
+                  {timeSlots.map((slot, slotIndex) => (
                     <tr key={slot.time}>
                       <td className="text-xs text-accent/50 font-medium py-4 px-4 border border-white/[0.04] whitespace-nowrap">
                         {slot.time}
@@ -194,7 +161,7 @@ export default function Schedule() {
                               key={day}
                               className="border border-white/[0.04] p-2 text-center"
                             >
-                              {slot === timeSlots[2] && (
+                              {slotIndex === 2 && (
                                 <span className="text-white/15 text-[11px] tracking-[0.2em] uppercase">
                                   Closed
                                 </span>
@@ -212,18 +179,14 @@ export default function Schedule() {
               </table>
             </div>
 
-            {/* Mobile cards */}
-            <div className="md:hidden space-y-3">
-              {timeSlots.map((slot) => (
-                <MobileCard key={slot.time} slot={slot} />
-              ))}
-            </div>
-
             {/* Legend */}
             <div className="flex flex-wrap gap-x-8 gap-y-3 mt-8 pt-6 border-t border-white/[0.06]">
               {legendItems.map(([name, color]) => (
                 <div key={name} className="flex items-center gap-2.5">
-                  <div className={`w-3 h-3 rounded-sm ${color.dot}`} />
+                  <div
+                    className="w-3 h-3 rounded-sm"
+                    style={{ backgroundColor: color.bg }}
+                  />
                   <span className="text-[11px] tracking-wider text-white/40 uppercase">
                     {name}
                   </span>
@@ -233,6 +196,18 @@ export default function Schedule() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Book a Class CTA */}
+      <div className="mt-10">
+        <a
+          href="https://boxx.zatrovo.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full py-5 bg-cta text-[#0a0a0a] text-sm tracking-[0.2em] uppercase font-semibold hover:bg-cta-hover transition-colors duration-300 text-center"
+        >
+          Book a Class
+        </a>
+      </div>
     </div>
   );
 }
@@ -240,7 +215,6 @@ export default function Schedule() {
 function MinimisedView() {
   const now = new Date();
   const dayIndex = now.getDay();
-  // Convert JS day (0=Sun) to our array (0=Mon)
   const todayIndex = dayIndex === 0 ? 6 : dayIndex - 1;
   const todayKey = days[todayIndex];
 
@@ -251,7 +225,6 @@ function MinimisedView() {
       name: slot.classes[todayKey],
     }));
 
-  // Also show tomorrow
   const tomorrowIndex = (todayIndex + 1) % 7;
   const tomorrowKey = days[tomorrowIndex];
   const tomorrowClasses = timeSlots
@@ -262,63 +235,43 @@ function MinimisedView() {
     }));
 
   return (
-    <div className="grid md:grid-cols-2 gap-5">
-      {/* Today */}
-      <div className="border border-white/[0.06] bg-card/50">
-        <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
-          <span className="text-sm font-semibold tracking-wide">Today</span>
-          <span className="text-[11px] tracking-[0.2em] uppercase text-accent/60">{todayKey}</span>
-        </div>
-        <div className="p-4 space-y-2">
-          {todayClasses.length === 0 ? (
-            <p className="text-white/30 text-sm px-2 py-4 text-center">No classes today</p>
-          ) : (
-            todayClasses.map((cls) => {
-              const color = classColors[cls.name];
-              return (
-                <div
-                  key={cls.time}
-                  className="flex items-center gap-4 px-4 py-3 bg-white/[0.02] border border-white/[0.04]"
-                >
-                  <span className="text-xs text-accent/50 font-medium w-24 shrink-0">
-                    {cls.time}
-                  </span>
-                  <div className={`${color.dot} w-2 h-2 rounded-full shrink-0`} />
-                  <span className="text-sm font-semibold tracking-wide">{cls.name}</span>
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
+    <div className="grid grid-cols-2 gap-5">
+      <DayCard title="Today" dayKey={todayKey} classes={todayClasses} />
+      <DayCard title="Tomorrow" dayKey={tomorrowKey} classes={tomorrowClasses} />
+    </div>
+  );
+}
 
-      {/* Tomorrow */}
-      <div className="border border-white/[0.06] bg-card/50">
-        <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
-          <span className="text-sm font-semibold tracking-wide">Tomorrow</span>
-          <span className="text-[11px] tracking-[0.2em] uppercase text-accent/60">{tomorrowKey}</span>
-        </div>
-        <div className="p-4 space-y-2">
-          {tomorrowClasses.length === 0 ? (
-            <p className="text-white/30 text-sm px-2 py-4 text-center">No classes</p>
-          ) : (
-            tomorrowClasses.map((cls) => {
-              const color = classColors[cls.name];
-              return (
+function DayCard({ title, dayKey, classes }) {
+  return (
+    <div className="border border-white/[0.06] bg-card/50">
+      <div className="px-6 py-4 border-b border-white/[0.06] flex items-center justify-between">
+        <span className="text-sm font-semibold tracking-wide">{title}</span>
+        <span className="text-[11px] tracking-[0.2em] uppercase text-accent/60">{dayKey}</span>
+      </div>
+      <div className="p-4 space-y-2">
+        {classes.length === 0 ? (
+          <p className="text-white/30 text-sm px-2 py-4 text-center">No classes</p>
+        ) : (
+          classes.map((cls) => {
+            const color = classColors[cls.name];
+            return (
+              <div
+                key={cls.time}
+                className="flex items-center gap-4 px-4 py-3 bg-white/[0.02] border border-white/[0.04]"
+              >
+                <span className="text-xs text-accent/50 font-medium w-24 shrink-0">
+                  {cls.time}
+                </span>
                 <div
-                  key={cls.time}
-                  className="flex items-center gap-4 px-4 py-3 bg-white/[0.02] border border-white/[0.04]"
-                >
-                  <span className="text-xs text-accent/50 font-medium w-24 shrink-0">
-                    {cls.time}
-                  </span>
-                  <div className={`${color.dot} w-2 h-2 rounded-full shrink-0`} />
-                  <span className="text-sm font-semibold tracking-wide">{cls.name}</span>
-                </div>
-              );
-            })
-          )}
-        </div>
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: color.bg }}
+                />
+                <span className="text-sm font-semibold tracking-wide">{cls.name}</span>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
