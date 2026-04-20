@@ -3,6 +3,83 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+function MemberVideo() {
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const inView = useInView(containerRef, { once: true, margin: '-80px' });
+
+  const handleToggle = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  };
+
+  return (
+    <motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-24 md:mt-32 flex flex-col items-center"
+    >
+      <p className="text-accent text-xs tracking-[0.4em] uppercase mb-6">
+        Hear From Our Members
+      </p>
+      <div className="w-8 h-[1px] bg-accent mb-10" />
+
+      <button
+        type="button"
+        onClick={handleToggle}
+        aria-label={playing ? 'Pause video' : 'Play video'}
+        className="group relative block w-[240px] sm:w-[280px] md:w-[320px] aspect-[9/16] rounded-[28px] overflow-hidden border border-white/10 bg-black shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] transition-transform duration-500 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      >
+        <video
+          ref={videoRef}
+          src="/videos/members-testimonial.mp4"
+          poster="/videos/members-testimonial-poster.jpg"
+          playsInline
+          preload="metadata"
+          onEnded={() => setPlaying(false)}
+          onPause={() => setPlaying(false)}
+          onPlay={() => setPlaying(true)}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        <div
+          className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-500 ${
+            playing ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+
+        <div
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
+            playing ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <div className="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full bg-accent/90 backdrop-blur-sm shadow-lg transition-transform duration-500 group-hover:scale-110">
+            <span className="absolute inset-0 rounded-full bg-accent/40 animate-ping" />
+            <svg
+              viewBox="0 0 24 24"
+              className="relative w-6 h-6 md:w-7 md:h-7 text-black translate-x-[2px]"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </button>
+    </motion.div>
+  );
+}
+
 const testimonials = [
   {
     quote:
@@ -87,6 +164,8 @@ export default function Testimonials() {
             />
           ))}
         </div>
+
+        <MemberVideo />
       </div>
     </section>
   );
