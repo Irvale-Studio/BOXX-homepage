@@ -4,6 +4,7 @@ import MarqueeBanner from '@/components/MarqueeBanner';
 import About from '@/components/About';
 import Features from '@/components/Features';
 import Classes from '@/components/Classes';
+import Pricing from '@/components/Pricing';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
 import Community from '@/components/Community';
@@ -24,6 +25,7 @@ export default function Home() {
       <MarqueeBanner />
       <About />
       <Classes />
+      <Pricing />
       <Testimonials />
       <Community />
       <Gallery />
