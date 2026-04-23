@@ -160,6 +160,14 @@ export default function Footer() {
               <Link href="/terms" className="text-[11px] text-white/15 hover:text-accent transition-colors duration-300 tracking-wider">
                 Terms &amp; Conditions
               </Link>
+              <a
+                href="https://zatrovo.com"
+                target="_blank"
+                rel="noopener"
+                className="text-[11px] text-white/15 hover:text-accent transition-colors duration-300 tracking-wider"
+              >
+                Powered by Zatrovo
+              </a>
               <p className="text-[11px] text-white/15 tracking-[0.3em]">
                 #BOXXCNX
               </p>
